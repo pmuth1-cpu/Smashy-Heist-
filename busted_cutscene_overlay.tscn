@@ -1,0 +1,92 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/busted_cutscene_overlay.gd" id="1_cutscene"]
+[ext_resource type="Shader" path="res://shaders/busted_desaturate.gdshader" id="2_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_desat"]
+shader = ExtResource("2_shader")
+shader_parameter/saturation = 1.0
+shader_parameter/contrast = 1.35
+shader_parameter/vignette_intensity = 0.0
+shader_parameter/vignette_radius = 0.85
+shader_parameter/police_pulse = 0.0
+shader_parameter/pulse_speed = 8.0
+shader_parameter/time_val = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_banner"]
+bg_color = Color(0.04, 0.08, 0.16, 0.96)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0, 0.85, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.85)
+shadow_size = 18
+skew = Vector2(-0.08, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_stamp"]
+font_size = 86
+font_color = Color(0.95, 0.98, 1, 1)
+outline_size = 18
+outline_color = Color(0.02, 0.12, 0.35, 1)
+shadow_size = 12
+shadow_color = Color(0, 0.65, 1, 0.75)
+
+[node name="BustedCutsceneOverlay" type="CanvasLayer"]
+process_mode = 3
+layer = 15
+script = ExtResource("1_cutscene")
+
+[node name="ShaderRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_desat")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="StampHolder" type="Control" parent="CenterContainer"]
+visible = false
+custom_minimum_size = Vector2(620, 150)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="BannerFrame" type="PanelContainer" parent="CenterContainer/StampHolder"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.0872665
+pivot_offset = Vector2(310, 75)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_banner")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/StampHolder/BannerFrame"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 10
+
+[node name="StampLabel" type="Label" parent="CenterContainer/StampHolder/BannerFrame/MarginContainer"]
+layout_mode = 2
+text = "BUSTED"
+label_settings = SubResource("LabelSettings_stamp")
+horizontal_alignment = 1
+vertical_alignment = 1

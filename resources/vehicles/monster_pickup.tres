@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CarStats" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/vehicles/car_stats.gd" id="1_car_stats"]
+
+[resource]
+script = ExtResource("1_car_stats")
+car_id = "monster_pickup"
+car_name = "Crusher 4x4"
+rarity_tier = "EPIC"
+rarity_color = Color(0.0392157, 0.741176, 0.890196, 1)
+special_perk_description = "Giant high-clearance tires that bounce through obstacles."
+max_speed = 22.5
+acceleration = 25.0
+reverse_acceleration = 13.0
+turn_speed = 3.2
+drift_grip = 0.92
+body_tilt_amount = 0.22
+mass_weight = 3.4

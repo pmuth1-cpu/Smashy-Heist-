@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CarStats" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/vehicles/car_stats.gd" id="1_car_stats"]
+
+[resource]
+script = ExtResource("1_car_stats")
+car_id = "tuk_tuk_jet"
+car_name = "Jet Tuk-Tuk"
+rarity_tier = "RARE"
+rarity_color = Color(0, 0.823529, 0.827451, 1)
+special_perk_description = "Ultra agile 3-wheel turns with high-velocity jet boost."
+max_speed = 24.0
+acceleration = 27.0
+reverse_acceleration = 13.5
+turn_speed = 3.7
+drift_grip = 0.88
+body_tilt_amount = 0.28
+mass_weight = 1.3

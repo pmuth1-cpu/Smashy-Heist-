@@ -1,0 +1,201 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/multiplayer_lobby.gd" id="1_lobby"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.06, 0.08, 0.12, 0.96)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.95, 0.75, 0.1, 0.95)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.7)
+shadow_size = 14
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font_size = 38
+font_color = Color(1, 0.85, 0.1, 1)
+outline_size = 8
+outline_color = Color(0.12, 0.05, 0.02, 0.95)
+shadow_size = 6
+shadow_color = Color(0, 0, 0, 0.7)
+
+[sub_resource type="LabelSettings" id="LabelSettings_subtitle"]
+font_size = 16
+font_color = Color(0.4, 0.85, 1, 1)
+outline_size = 3
+outline_color = Color(0.05, 0.1, 0.2, 0.9)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_daily"]
+bg_color = Color(0.9, 0.32, 0.1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_hotloot"]
+bg_color = Color(0.85, 0.65, 0.05, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_garage"]
+bg_color = Color(0.12, 0.55, 0.82, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_action"]
+bg_color = Color(0.18, 0.65, 0.32, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_secondary"]
+bg_color = Color(0.25, 0.3, 0.38, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="MultiplayerLobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lobby")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(640, 480)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 28
+
+[node name="MainMenuBox" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/MainMenuBox"]
+layout_mode = 2
+text = "SMASHY HEIST"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/MainMenuBox"]
+layout_mode = 2
+text = "TODAY'S GETAWAY CHALLENGE"
+label_settings = SubResource("LabelSettings_subtitle")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/MarginContainer/MainMenuBox"]
+layout_mode = 2
+
+[node name="PlayDailyButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/MainMenuBox"]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_daily")
+text = "🔥 PLAY DAILY SEED GETAWAY"
+
+[node name="HotLootButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/MainMenuBox"]
+custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_hotloot")
+text = "💰 4P HOT LOOT TAG (ONLINE / BOT BACKFILL)"
+
+[node name="GarageButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/MainMenuBox"]
+custom_minimum_size = Vector2(0, 68)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_garage")
+text = "🏎️ GARAGE & LEADERBOARDS"
+
+[node name="HotLootBox" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="RoomTitle" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/HotLootBox"]
+layout_mode = 2
+text = "4-PLAYER HOT LOOT ROOM"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+
+[node name="RoomStatusLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/HotLootBox"]
+layout_mode = 2
+text = "Room hosted on port 7777."
+horizontal_alignment = 1
+
+[node name="AutoStartLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/HotLootBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.2, 1)
+text = "⏱️ Auto-filling with AI Rivals in: 4.0s"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="CenterContainer/PanelContainer/MarginContainer/HotLootBox"]
+layout_mode = 2
+
+[node name="PlayersListLabel" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/HotLootBox"]
+layout_mode = 2
+text = "🏎️ Slot 1: Host (Local)
+🤖 Slot 2: [AI Rival Bot Backfill]
+🤖 Slot 3: [AI Rival Bot Backfill]
+🤖 Slot 4: [AI Rival Bot Backfill]"
+
+[node name="JoinBox" type="HBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer/HotLootBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="IPLineEdit" type="LineEdit" parent="CenterContainer/PanelContainer/MarginContainer/HotLootBox/JoinBox"]
+custom_minimum_size = Vector2(300, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Host IP: 127.0.0.1"
+
+[node name="JoinButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/HotLootBox/JoinBox"]
+custom_minimum_size = Vector2(150, 52)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_secondary")
+text = "🌐 Join IP"
+
+[node name="HostButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/HotLootBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_secondary")
+text = "👑 Re-Host Room (Port 7777)"
+
+[node name="StartNowButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/HotLootBox"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_action")
+text = "⚡ START 4P MATCH NOW"
+
+[node name="BackButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/HotLootBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+text = "⬅ Back to Menu"

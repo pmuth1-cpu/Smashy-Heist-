@@ -1,0 +1,84 @@
+[gd_scene load_steps=20 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/world/city_generator.tscn" id="1_02s2o"]
+[ext_resource type="Script" path="res://scripts/world/city_generator.gd" id="2_yls0m"]
+[ext_resource type="PackedScene" path="res://scenes/vehicles/arcade_car.tscn" id="3_1ykqh"]
+[ext_resource type="Script" path="res://scripts/vehicles/arcade_car.gd" id="4_atnbu"]
+[ext_resource type="PackedScene" path="res://scenes/world/camera_rig.tscn" id="5_c3j4a"]
+[ext_resource type="Script" path="res://scripts/world/camera_rig.gd" id="6_v6dap"]
+[ext_resource type="PackedScene" path="res://scenes/ui/touch_hud.tscn" id="7_b558i"]
+[ext_resource type="Script" path="res://scripts/ui/touch_hud.gd" id="8_w8cva"]
+[ext_resource type="Script" path="res://scripts/world/main_game.gd" id="9_main"]
+[ext_resource type="Script" path="res://scripts/world/police_spawner.gd" id="10_spawner"]
+[ext_resource type="PackedScene" path="res://scenes/vehicles/police_heli.tscn" id="11_heli"]
+[ext_resource type="Script" path="res://scripts/world/hot_loot_mode.gd" id="12_hotloot"]
+[ext_resource type="Script" path="res://scripts/world/boss_escape_mode.gd" id="14_boss"]
+[ext_resource type="Script" path="res://scripts/world/traffic_manager.gd" id="15_traffic"]
+[ext_resource type="PackedScene" path="res://scenes/ui/busted_cutscene_overlay.tscn" id="16_cutscene"]
+[ext_resource type="Script" path="res://scripts/world/smashy_kart_mode.gd" id="17_kart"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xbpsb"]
+sky_top_color = Color(0.32, 0.62, 0.98, 1)
+sky_horizon_color = Color(0.72, 0.86, 0.98, 1)
+ground_bottom_color = Color(0.18, 0.22, 0.26, 1)
+ground_horizon_color = Color(0.62, 0.72, 0.82, 1)
+
+[sub_resource type="Sky" id="Sky_pkjhv"]
+sky_material = SubResource("ProceduralSkyMaterial_xbpsb")
+
+[sub_resource type="Environment" id="Environment_sckqp"]
+background_mode = 2
+sky = SubResource("Sky_pkjhv")
+ambient_light_source = 3
+ambient_light_energy = 0.85
+tonemap_mode = 2
+
+[node name="MainGame" type="Node3D" unique_id=76849936]
+script = ExtResource("9_main")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=189856579]
+transform = Transform3D(0.766044, -0.492404, 0.413176, 0, 0.642788, 0.766044, -0.642788, -0.586824, 0.492404, 0, 0, 0)
+light_color = Color(1, 0.98, 0.92, 1)
+light_energy = 1.25
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1162549647]
+environment = SubResource("Environment_sckqp")
+
+[node name="CityGenerator" type="Node3D" parent="." unique_id=1517101501 instance=ExtResource("1_02s2o")]
+script = ExtResource("2_yls0m")
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/vehicles/arcade_car.tscn")
+spawn_path = NodePath("..")
+
+[node name="HotLootMode" type="Node3D" parent="."]
+script = ExtResource("12_hotloot")
+
+[node name="BossEscapeMode" type="Node3D" parent="."]
+script = ExtResource("14_boss")
+
+[node name="SmashyKartMode" type="Node3D" parent="."]
+script = ExtResource("17_kart")
+
+[node name="ArcadeCar" type="Node3D" parent="." unique_id=1018840555 instance=ExtResource("3_1ykqh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0.6, 20)
+script = ExtResource("4_atnbu")
+
+[node name="CameraRig" type="Node3D" parent="." unique_id=751517803 instance=ExtResource("5_c3j4a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 20)
+script = ExtResource("6_v6dap")
+
+[node name="TouchHUD" type="CanvasLayer" parent="." unique_id=443062491 instance=ExtResource("7_b558i")]
+script = ExtResource("8_w8cva")
+
+[node name="PoliceSpawner" type="Node3D" parent="."]
+script = ExtResource("10_spawner")
+
+[node name="PoliceHeli" parent="." instance=ExtResource("11_heli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 16, 20)
+
+[node name="TrafficManager" type="Node3D" parent="."]
+script = ExtResource("15_traffic")
+
+[node name="BustedCutsceneOverlay" parent="." instance=ExtResource("16_cutscene")]

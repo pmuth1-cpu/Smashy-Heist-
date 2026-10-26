@@ -1,0 +1,131 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/vehicles/police_car.gd" id="1_police"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_cop"]
+friction = 0.15
+bounce = 0.25
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sphere"]
+radius = 0.95
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_chassis"]
+albedo_color = Color(0.12, 0.12, 0.14, 1)
+roughness = 0.35
+
+[sub_resource type="BoxMesh" id="BoxMesh_chassis"]
+material = SubResource("StandardMaterial3D_chassis")
+size = Vector3(1.1, 0.6, 2.2)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_smoke"]
+direction = Vector3(0, 1, 0.5)
+spread = 25.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.5
+gravity = Vector3(0, 2, 0)
+scale_min = 0.15
+scale_max = 0.45
+color = Color(0.3, 0.3, 0.3, 0.7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_smoke"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.35, 0.35, 0.35, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_smoke"]
+material = SubResource("StandardMaterial3D_smoke")
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_exp"]
+direction = Vector3(0, 1, 0)
+spread = 60.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, -9.8, 0)
+scale_min = 0.2
+scale_max = 0.6
+color = Color(1, 0.45, 0.1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_exp"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.5, 0.1, 0.9)
+
+[sub_resource type="BoxMesh" id="BoxMesh_exp"]
+material = SubResource("StandardMaterial3D_exp")
+size = Vector3(0.25, 0.25, 0.25)
+
+[node name="PoliceCar" type="Node3D" groups=["police_units"]]
+script = ExtResource("1_police")
+
+[node name="PhysicsSphere" type="RigidBody3D" parent="."]
+collision_layer = 4
+collision_mask = 31
+physics_material_override = SubResource("PhysicsMaterial_cop")
+gravity_scale = 3.2
+linear_damp = 1.5
+angular_damp = 4.0
+contact_monitor = true
+max_contacts_reported = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PhysicsSphere"]
+shape = SubResource("SphereShape3D_sphere")
+
+[node name="CarPivot" type="Node3D" parent="."]
+top_level = true
+
+[node name="ChassisMesh" type="MeshInstance3D" parent="CarPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+mesh = SubResource("BoxMesh_chassis")
+
+[node name="SirenBar" type="Node3D" parent="CarPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
+[node name="RedLight" type="OmniLight3D" parent="CarPivot/SirenBar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0)
+light_color = Color(1, 0.12, 0.12, 1)
+light_energy = 2.5
+omni_range = 6.0
+
+[node name="BlueLight" type="OmniLight3D" parent="CarPivot/SirenBar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
+light_color = Color(0.12, 0.35, 1, 1)
+light_energy = 2.5
+omni_range = 6.0
+
+[node name="GroundRay" type="RayCast3D" parent="CarPivot"]
+target_position = Vector3(0, -1.1, 0)
+collision_mask = 1
+
+[node name="RayCenter" type="RayCast3D" parent="CarPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+target_position = Vector3(0, 0, -9)
+collision_mask = 8
+
+[node name="RayLeft" type="RayCast3D" parent="CarPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+target_position = Vector3(-3.52, 0, -6.62)
+collision_mask = 8
+
+[node name="RayRight" type="RayCast3D" parent="CarPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+target_position = Vector3(3.52, 0, -6.62)
+collision_mask = 8
+
+[node name="SmokeTrail" type="GPUParticles3D" parent="CarPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.8)
+emitting = false
+amount = 16
+lifetime = 0.5
+process_material = SubResource("ParticleProcessMaterial_smoke")
+draw_pass_1 = SubResource("BoxMesh_smoke")
+
+[node name="ExplosionParticles" type="GPUParticles3D" parent="CarPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+emitting = false
+amount = 32
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.95
+process_material = SubResource("ParticleProcessMaterial_exp")
+draw_pass_1 = SubResource("BoxMesh_exp")

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CarStats" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/vehicles/car_stats.gd" id="1_car_stats"]
+
+[resource]
+script = ExtResource("1_car_stats")
+car_id = "f1_street_kart"
+car_name = "Apex Kart"
+rarity_tier = "LEGENDARY"
+rarity_color = Color(0.945098, 0.768627, 0.0588235, 1)
+special_perk_description = "Formula-grade cornering grip with instant snap acceleration."
+max_speed = 26.0
+acceleration = 29.5
+reverse_acceleration = 15.0
+turn_speed = 3.85
+drift_grip = 0.96
+body_tilt_amount = 0.12
+mass_weight = 1.6

@@ -1,0 +1,383 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/touch_hud.gd" id="1_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/run_summary_panel.tscn" id="2_summary"]
+[ext_resource type="PackedScene" path="res://scenes/ui/leaderboard_panel.tscn" id="3_leaderboard"]
+[ext_resource type="PackedScene" path="res://scenes/ui/garage_gacha_panel.tscn" id="4_garage"]
+[ext_resource type="PackedScene" path="res://scenes/ui/multiplayer_lobby.tscn" id="5_lobby"]
+[ext_resource type="PackedScene" path="res://scenes/ui/star_perk_popup.tscn" id="6_perk"]
+[ext_resource type="PackedScene" path="res://scenes/ui/pause_menu_modal.tscn" id="7_pause"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_health_bg"]
+bg_color = Color(0.08, 0.1, 0.14, 0.9)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 5
+border_color = Color(0.05, 0.07, 0.09, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+skew = Vector2(-0.06, 0)
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_health_fill"]
+bg_color = Color(0.18, 0.8, 0.44, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_combo_badge"]
+bg_color = Color(0.9, 0.2, 0.2, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 6
+border_color = Color(0.05, 0.07, 0.09, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+skew = Vector2(0.06, 0)
+content_margin_left = 14.0
+content_margin_top = 6.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_combo_fill"]
+bg_color = Color(0.98, 0.77, 0.19, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="LabelSettings" id="LabelSettings_score"]
+font_size = 42
+outline_size = 10
+outline_color = Color(0.05, 0.07, 0.09, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.7)
+shadow_offset = Vector2(2, 4)
+
+[sub_resource type="LabelSettings" id="LabelSettings_star"]
+font_size = 38
+outline_size = 6
+outline_color = Color(0.05, 0.07, 0.09, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_combo"]
+font_size = 26
+font_color = Color(1, 1, 1, 1)
+outline_size = 8
+outline_color = Color(0.05, 0.07, 0.09, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.6)
+
+[sub_resource type="LabelSettings" id="LabelSettings_banner"]
+font_size = 24
+font_color = Color(1, 0.85, 0.15, 1)
+outline_size = 6
+outline_color = Color(0.05, 0.07, 0.09, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.6)
+
+[node name="TouchHUD" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="SafeMarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 28
+
+[node name="TouchZones" type="HBoxContainer" parent="SafeMarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="LeftTouchZone" type="Control" parent="SafeMarginContainer/TouchZones"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+
+[node name="LeftIndicator" type="ColorRect" parent="SafeMarginContainer/TouchZones/LeftTouchZone"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.08)
+
+[node name="RightTouchZone" type="Control" parent="SafeMarginContainer/TouchZones"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+
+[node name="RightIndicator" type="ColorRect" parent="SafeMarginContainer/TouchZones/RightTouchZone"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.08)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SafeMarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+
+[node name="TopBar" type="HBoxContainer" parent="SafeMarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TopLeftBox" type="VBoxContainer" parent="SafeMarginContainer/VBoxContainer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="HealthPanel" type="PanelContainer" parent="SafeMarginContainer/VBoxContainer/TopBar/TopLeftBox"]
+custom_minimum_size = Vector2(280, 52)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_health_bg")
+
+[node name="HealthHBox" type="HBoxContainer" parent="SafeMarginContainer/VBoxContainer/TopBar/TopLeftBox/HealthPanel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="HealthIcon" type="Label" parent="SafeMarginContainer/VBoxContainer/TopBar/TopLeftBox/HealthPanel/HealthHBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "❤️"
+
+[node name="HealthBar" type="ProgressBar" parent="SafeMarginContainer/VBoxContainer/TopBar/TopLeftBox/HealthPanel/HealthHBox"]
+custom_minimum_size = Vector2(140, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/fill = SubResource("StyleBoxFlat_health_fill")
+value = 100.0
+show_percentage = false
+
+[node name="HealthNumber" type="Label" parent="SafeMarginContainer/VBoxContainer/TopBar/TopLeftBox/HealthPanel/HealthHBox"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.05, 0.07, 0.09, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 18
+text = "150/150"
+
+[node name="StarsContainer" type="HBoxContainer" parent="SafeMarginContainer/VBoxContainer/TopBar/TopLeftBox"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="Star1" type="Label" parent="SafeMarginContainer/VBoxContainer/TopBar/TopLeftBox/StarsContainer"]
+layout_mode = 2
+text = "★"
+label_settings = SubResource("LabelSettings_star")
+
+[node name="Star2" type="Label" parent="SafeMarginContainer/VBoxContainer/TopBar/TopLeftBox/StarsContainer"]
+layout_mode = 2
+text = "★"
+label_settings = SubResource("LabelSettings_star")
+
+[node name="Star3" type="Label" parent="SafeMarginContainer/VBoxContainer/TopBar/TopLeftBox/StarsContainer"]
+layout_mode = 2
+text = "★"
+label_settings = SubResource("LabelSettings_star")
+
+[node name="Star4" type="Label" parent="SafeMarginContainer/VBoxContainer/TopBar/TopLeftBox/StarsContainer"]
+layout_mode = 2
+text = "★"
+label_settings = SubResource("LabelSettings_star")
+
+[node name="Star5" type="Label" parent="SafeMarginContainer/VBoxContainer/TopBar/TopLeftBox/StarsContainer"]
+layout_mode = 2
+text = "★"
+label_settings = SubResource("LabelSettings_star")
+
+[node name="TopRightBox" type="HBoxContainer" parent="SafeMarginContainer/VBoxContainer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 16
+alignment = 2
+
+[node name="ScoreVBox" type="VBoxContainer" parent="SafeMarginContainer/VBoxContainer/TopBar/TopRightBox"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="SafeMarginContainer/VBoxContainer/TopBar/TopRightBox/ScoreVBox"]
+layout_mode = 2
+text = "000000"
+label_settings = SubResource("LabelSettings_score")
+horizontal_alignment = 2
+
+[node name="ComboContainer" type="VBoxContainer" parent="SafeMarginContainer/VBoxContainer/TopBar/TopRightBox/ScoreVBox"]
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="ComboBadge" type="PanelContainer" parent="SafeMarginContainer/VBoxContainer/TopBar/TopRightBox/ScoreVBox/ComboContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_combo_badge")
+
+[node name="ComboLabel" type="Label" parent="SafeMarginContainer/VBoxContainer/TopBar/TopRightBox/ScoreVBox/ComboContainer/ComboBadge"]
+layout_mode = 2
+text = "🔥 x2 COMBO!"
+label_settings = SubResource("LabelSettings_combo")
+horizontal_alignment = 1
+
+[node name="ComboDrainBar" type="ProgressBar" parent="SafeMarginContainer/VBoxContainer/TopBar/TopRightBox/ScoreVBox/ComboContainer"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_combo_fill")
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="PauseButton" type="Button" parent="SafeMarginContainer/VBoxContainer/TopBar/TopRightBox"]
+custom_minimum_size = Vector2(92, 92)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+text = "⏸️"
+
+[node name="LootBanner" type="Label" parent="SafeMarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "👑 YOU HOLD THE HOT LOOT! EVADE COPS!"
+label_settings = SubResource("LabelSettings_banner")
+horizontal_alignment = 1
+
+[node name="GadgetContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -420.0
+offset_right = -100.0
+offset_bottom = -270.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="GadgetButton" type="Button" parent="GadgetContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GadgetVBox" type="VBoxContainer" parent="GadgetContainer/GadgetButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="GadgetIcon" type="Label" parent="GadgetContainer/GadgetButton/GadgetVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 46
+text = "⚡"
+horizontal_alignment = 1
+
+[node name="GadgetName" type="Label" parent="GadgetContainer/GadgetButton/GadgetVBox"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.05, 0.07, 0.09, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
+text = "USE GADGET"
+horizontal_alignment = 1
+
+[node name="CooldownOverlay" type="ColorRect" parent="GadgetContainer/GadgetButton"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.05, 0.07, 0.09, 0.75)
+
+[node name="CooldownLabel" type="Label" parent="GadgetContainer/GadgetButton/CooldownOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.15, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.07, 0.09, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 28
+text = "5.0s"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LootPointer" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="PointerIcon" type="Polygon2D" parent="LootPointer"]
+color = Color(1, 0.85, 0.1, 1)
+polygon = PackedVector2Array(0, -28, 16, 12, 0, 4, -16, 12)
+
+[node name="PointerOutline" type="Line2D" parent="LootPointer"]
+points = PackedVector2Array(0, -28, 16, 12, 0, 4, -16, 12, 0, -28)
+width = 2.5
+default_color = Color(0.12, 0.08, 0.02, 1)
+
+[node name="RunSummaryPanel" parent="." instance=ExtResource("2_summary")]
+visible = false
+
+[node name="LeaderboardPanel" parent="." instance=ExtResource("3_leaderboard")]
+visible = false
+
+[node name="GarageGachaPanel" parent="." instance=ExtResource("4_garage")]
+visible = false
+
+[node name="MultiplayerLobby" parent="." instance=ExtResource("5_lobby")]
+visible = false
+
+[node name="StarPerkPopup" parent="." instance=ExtResource("6_perk")]
+visible = false
+
+[node name="PauseMenuModal" parent="." instance=ExtResource("7_pause")]
+visible = false

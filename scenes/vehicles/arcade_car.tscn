@@ -1,0 +1,203 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/vehicles/arcade_car.gd" id="1_nl6s7"]
+[ext_resource type="Resource" path="res://resources/vehicles/default_coupe.tres" id="2_stats"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_car"]
+properties/0/path = NodePath("PhysicsSphere:global_position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("PhysicsSphere:linear_velocity")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("CarPivot:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(":steer_input")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(":is_reversing")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fdmrr"]
+friction = 0.1
+bounce = 0.25
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_njcvl"]
+radius = 0.95
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ughps"]
+albedo_color = Color(0.92, 0.18, 0.18, 1)
+roughness = 0.35
+
+[sub_resource type="BoxMesh" id="BoxMesh_121n3"]
+material = SubResource("StandardMaterial3D_ughps")
+size = Vector3(1.1, 0.6, 2.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ol3kc"]
+albedo_color = Color(0.08, 0.42, 0.52, 1)
+roughness = 0.2
+
+[sub_resource type="BoxMesh" id="BoxMesh_o4gva"]
+material = SubResource("StandardMaterial3D_ol3kc")
+size = Vector3(0.92, 0.36, 0.8)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_aoshy"]
+direction = Vector3(0, 0.8, 1)
+spread = 20.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.5
+gravity = Vector3(0, 1.5, 0)
+scale_min = 0.15
+scale_max = 0.4
+color = Color(0.9, 0.9, 0.9, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dre0r"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.9, 0.9, 0.9, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0rd6h"]
+material = SubResource("StandardMaterial3D_dre0r")
+size = Vector3(0.18, 0.18, 0.18)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kl8ad"]
+direction = Vector3(0, 0.8, 1)
+spread = 20.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.5
+gravity = Vector3(0, 1.5, 0)
+scale_min = 0.15
+scale_max = 0.4
+color = Color(0.9, 0.9, 0.9, 0.6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_awlc5"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.9, 0.9, 0.9, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gs2bx"]
+material = SubResource("StandardMaterial3D_awlc5")
+size = Vector3(0.18, 0.18, 0.18)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_busted"]
+albedo_color = Color(1, 0.15, 0.15, 0.9)
+emission_enabled = true
+emission = Color(1, 0.15, 0.15, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="TorusMesh" id="TorusMesh_busted"]
+material = SubResource("StandardMaterial3D_busted")
+inner_radius = 1.1
+outer_radius = 1.25
+rings = 24
+ring_segments = 12
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dmg_smoke"]
+direction = Vector3(0, 1, 0.2)
+spread = 25.0
+initial_velocity_min = 1.2
+initial_velocity_max = 2.8
+gravity = Vector3(0, 1.8, 0)
+scale_min = 0.2
+scale_max = 0.5
+color = Color(0.2, 0.2, 0.2, 0.75)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dmg_smoke"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.2, 0.2, 0.2, 0.7)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dmg_smoke"]
+material = SubResource("StandardMaterial3D_dmg_smoke")
+size = Vector3(0.22, 0.22, 0.22)
+
+[node name="ArcadeCar" type="Node3D" unique_id=1018840555]
+script = ExtResource("1_nl6s7")
+stats = ExtResource("2_stats")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_car")
+
+[node name="PhysicsSphere" type="RigidBody3D" parent="." unique_id=760973413]
+collision_layer = 2
+collision_mask = 31
+physics_material_override = SubResource("PhysicsMaterial_fdmrr")
+gravity_scale = 3.2
+contact_monitor = true
+max_contacts_reported = 4
+linear_damp = 1.6
+angular_damp = 4.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PhysicsSphere" unique_id=1059567552]
+shape = SubResource("SphereShape3D_njcvl")
+
+[node name="CarPivot" type="Node3D" parent="." unique_id=483715774]
+top_level = true
+
+[node name="BodyMesh" type="MeshInstance3D" parent="CarPivot" unique_id=407481647]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+mesh = SubResource("BoxMesh_121n3")
+
+[node name="WindshieldMesh" type="MeshInstance3D" parent="CarPivot" unique_id=1307696822]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68, -0.35)
+mesh = SubResource("BoxMesh_o4gva")
+
+[node name="GroundRay" type="RayCast3D" parent="CarPivot" unique_id=1243911492]
+target_position = Vector3(0, -1.1, 0)
+
+[node name="RayCenter" type="RayCast3D" parent="CarPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+target_position = Vector3(0, 0, -5.5)
+collision_mask = 8
+
+[node name="RayLeft" type="RayCast3D" parent="CarPivot"]
+transform = Transform3D(0.906308, 0, -0.422618, 0, 1, 0, 0.422618, 0, 0.906308, 0, 0.2, 0)
+target_position = Vector3(0, 0, -4.8)
+collision_mask = 8
+
+[node name="RayRight" type="RayCast3D" parent="CarPivot"]
+transform = Transform3D(0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, 0.906308, 0, 0.2, 0)
+target_position = Vector3(0, 0, -4.8)
+collision_mask = 8
+
+[node name="Nameplate" type="Label3D" parent="CarPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85, 0)
+billboard = 1
+text = "Driver 1
+0 PTS"
+font_size = 28
+outline_size = 6
+outline_render_priority = 1
+
+[node name="DriftSmokeLeft" type="GPUParticles3D" parent="CarPivot" unique_id=472776414]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.55, 0.05, 0.85)
+emitting = false
+amount = 16
+lifetime = 0.5
+randomness = 0.2
+process_material = SubResource("ParticleProcessMaterial_aoshy")
+draw_pass_1 = SubResource("BoxMesh_0rd6h")
+
+[node name="DriftSmokeRight" type="GPUParticles3D" parent="CarPivot" unique_id=383587824]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55, 0.05, 0.85)
+emitting = false
+amount = 16
+lifetime = 0.5
+randomness = 0.2
+process_material = SubResource("ParticleProcessMaterial_kl8ad")
+draw_pass_1 = SubResource("BoxMesh_gs2bx")
+
+[node name="BustedIndicator" type="MeshInstance3D" parent="CarPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0)
+visible = false
+mesh = SubResource("TorusMesh_busted")
+
+[node name="DamageSmoke" type="GPUParticles3D" parent="CarPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, -0.85)
+emitting = false
+amount = 18
+lifetime = 0.6
+process_material = SubResource("ParticleProcessMaterial_dmg_smoke")
+draw_pass_1 = SubResource("BoxMesh_dmg_smoke")

@@ -1,0 +1,33 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/vehicles/ghost_car.gd" id="1_ghost"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hologram"]
+transparency = 1
+albedo_color = Color(0.15, 0.9, 1, 0.42)
+emission_enabled = true
+emission = Color(0.15, 0.9, 1, 1)
+emission_energy_multiplier = 2.0
+rim_enabled = true
+rim = 0.8
+rim_tint = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_ghost"]
+material = SubResource("StandardMaterial3D_hologram")
+size = Vector3(1.1, 0.6, 2.2)
+
+[node name="GhostCar" type="Node3D"]
+script = ExtResource("1_ghost")
+
+[node name="GhostMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+mesh = SubResource("BoxMesh_ghost")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+billboard = 1
+text = "GHOST BEST"
+font_size = 28
+outline_size = 6
+modulate = Color(0.15, 0.9, 1, 0.9)
+outline_modulate = Color(0.02, 0.15, 0.2, 0.9)

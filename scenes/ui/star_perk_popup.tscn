@@ -1,0 +1,174 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/star_perk_popup.gd" id="1_popup"]
+
+[node name="StarPerkPopup" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+script = ExtResource("1_popup")
+
+[node name="DarkOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.06, 0.09, 0.82)
+
+[node name="HeaderBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 36.0
+offset_bottom = 125.0
+grow_horizontal = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="HeaderLabel" type="Label" parent="HeaderBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.15, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.07, 0.09, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 34
+text = "⭐ WANTED LEVEL UP! ⭐"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SubheaderLabel" type="Label" parent="HeaderBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.85, 1, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.07, 0.09, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 18
+text = "CHOOSE 1 ROGUELIKE UPGRADE FOR YOUR RUN"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CardContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -460.0
+offset_top = -300.0
+offset_right = 460.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="CardLeft" type="Button" parent="CardContainer"]
+custom_minimum_size = Vector2(420, 580)
+layout_mode = 2
+focus_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="CardContainer/CardLeft"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+alignment = 0
+
+[node name="ArtContainer" type="CenterContainer" parent="CardContainer/CardLeft/VBox"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PerkArt" type="TextureRect" parent="CardContainer/CardLeft/VBox/ArtContainer"]
+custom_minimum_size = Vector2(396, 400)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TitleLabel" type="Label" parent="CardContainer/CardLeft/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.07, 0.09, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 24
+text = "🔥 NITRO DRIFT"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="DescLabel" type="Label" parent="CardContainer/CardLeft/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.92, 0.98, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.07, 0.09, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 15
+text = "Drift Boost +40% charge & +1.0s duration."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="CardRight" type="Button" parent="CardContainer"]
+custom_minimum_size = Vector2(420, 580)
+layout_mode = 2
+focus_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="CardContainer/CardRight"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+alignment = 0
+
+[node name="ArtContainer" type="CenterContainer" parent="CardContainer/CardRight/VBox"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PerkArt" type="TextureRect" parent="CardContainer/CardRight/VBox/ArtContainer"]
+custom_minimum_size = Vector2(396, 400)
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TitleLabel" type="Label" parent="CardContainer/CardRight/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.07, 0.09, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 24
+text = "💥 EXPLOSIVE BUMPER"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="DescLabel" type="Label" parent="CardContainer/CardRight/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.92, 0.98, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.07, 0.09, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 15
+text = "Ramming cops triggers explosions & -50% ram dmg."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+

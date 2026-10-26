@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/props/smash_prop.gd" id="1_prop"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_prop"]
+size = Vector3(0.6, 0.9, 0.6)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_init"]
+top_radius = 0.22
+bottom_radius = 0.24
+height = 0.85
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_init"]
+albedo_color = Color(0.92, 0.18, 0.18, 1)
+roughness = 0.4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hit"]
+size = Vector3(1.0, 1.3, 1.0)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_init"]
+direction = Vector3(0, 1, 0)
+spread = 20.0
+initial_velocity_min = 4.0
+initial_velocity_max = 8.0
+gravity = Vector3(0, -9.8, 0)
+scale_min = 0.15
+scale_max = 0.4
+color = Color(0.2, 0.75, 0.95, 0.8)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_debris"]
+shading_mode = 0
+albedo_color = Color(0.2, 0.75, 0.95, 0.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_debris"]
+material = SubResource("StandardMaterial3D_debris")
+size = Vector3(0.18, 0.18, 0.18)
+
+[node name="SmashProp" type="RigidBody3D"]
+collision_layer = 16
+collision_mask = 7
+freeze = true
+freeze_mode = 1
+script = ExtResource("1_prop")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+shape = SubResource("BoxShape3D_prop")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.425, 0)
+mesh = SubResource("CylinderMesh_init")
+surface_material_override/0 = SubResource("StandardMaterial3D_init")
+
+[node name="HitDetector" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+shape = SubResource("BoxShape3D_hit")
+
+[node name="DebrisBurst" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+emitting = false
+amount = 32
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.95
+process_material = SubResource("ParticleProcessMaterial_init")
+draw_pass_1 = SubResource("BoxMesh_debris")

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CarStats" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/vehicles/car_stats.gd" id="1_car_stats"]
+
+[resource]
+script = ExtResource("1_car_stats")
+car_id = "gold_limo"
+car_name = "VIP Stretch"
+rarity_tier = "MYTHIC"
+rarity_color = Color(0.901961, 0.494118, 0.133333, 1)
+special_perk_description = "Collects +50% Cash Bags & Hot Loot points while evading law."
+max_speed = 23.5
+acceleration = 23.0
+reverse_acceleration = 12.0
+turn_speed = 3.1
+drift_grip = 0.88
+body_tilt_amount = 0.16
+mass_weight = 3.8

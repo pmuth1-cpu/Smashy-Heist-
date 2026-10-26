@@ -1,0 +1,26 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/vehicles/npc_traffic_car.gd" id="1_traffic"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_traffic"]
+size = Vector3(1.6, 0.9, 2.8)
+
+[node name="NPCTrafficCar" type="RigidBody3D" groups=["npc_traffic"]]
+collision_layer = 16
+collision_mask = 31
+mass = 2.5
+gravity_scale = 1.6
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+angular_damp = 15.0
+script = ExtResource("1_traffic")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_traffic")
+
+[node name="CarPivot" type="Node3D" parent="."]
+
+[node name="ForwardRay" type="RayCast3D" parent="CarPivot"]
+target_position = Vector3(0, 0.2, -6.5)
+collision_mask = 30

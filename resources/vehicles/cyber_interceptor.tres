@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CarStats" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/vehicles/car_stats.gd" id="1_car_stats"]
+
+[resource]
+script = ExtResource("1_car_stats")
+car_id = "cyber_interceptor"
+car_name = "Cyber Wedge"
+rarity_tier = "EPIC"
+rarity_color = Color(0.607843, 0.34902, 0.713726, 1)
+special_perk_description = "Aerodynamic downforce with neon underglow and extreme top end."
+max_speed = 25.5
+acceleration = 28.0
+reverse_acceleration = 14.0
+turn_speed = 3.6
+drift_grip = 0.92
+body_tilt_amount = 0.14
+mass_weight = 2.1

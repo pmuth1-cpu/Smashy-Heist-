@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CarStats" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/vehicles/car_stats.gd" id="1_car_stats"]
+
+[resource]
+script = ExtResource("1_car_stats")
+car_id = "ice_cream_drifter"
+car_name = "Frosty Van"
+rarity_tier = "SUPER RARE"
+rarity_color = Color(1, 0.623529, 0.952941, 1)
+special_perk_description = "Slick drift mechanics with high sustained slide bonus."
+max_speed = 21.5
+acceleration = 24.0
+reverse_acceleration = 12.0
+turn_speed = 3.5
+drift_grip = 0.86
+body_tilt_amount = 0.24
+mass_weight = 2.6

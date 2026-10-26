@@ -1,0 +1,209 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/pause_menu_modal.gd" id="1_pause"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal_card"]
+bg_color = Color(0.08, 0.1, 0.16, 0.96)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0, 0.82, 0.83, 1)
+corner_radius_top_left = 28
+corner_radius_top_right = 28
+corner_radius_bottom_right = 28
+corner_radius_bottom_left = 28
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_size = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stat_badge"]
+bg_color = Color(0.12, 0.16, 0.24, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.2, 0.3, 0.45, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_resume_btn"]
+bg_color = Color(0.18, 0.8, 0.44, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 8
+border_color = Color(0.08, 0.45, 0.24, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_restart_btn"]
+bg_color = Color(0.95, 0.61, 0.07, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 8
+border_color = Color(0.65, 0.38, 0.02, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_quit_btn"]
+bg_color = Color(0.91, 0.3, 0.24, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 8
+border_color = Color(0.6, 0.15, 0.12, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="PauseMenuModal" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pause")
+
+[node name="VignetteRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.05, 0.08, 0.75)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ModalCard" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(680, 580)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal_card")
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/ModalCard"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HeaderBanner" type="TextureRect" parent="CenterContainer/ModalCard/VBox"]
+custom_minimum_size = Vector2(512, 110)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StatsGrid" type="GridContainer" parent="CenterContainer/ModalCard/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 10
+columns = 2
+
+[node name="ScoreLabel" type="Label" parent="CenterContainer/ModalCard/VBox/StatsGrid"]
+layout_mode = 2
+text = "🏆 RUN SCORE:"
+horizontal_alignment = 2
+
+[node name="ScoreVal" type="Label" parent="CenterContainer/ModalCard/VBox/StatsGrid"]
+layout_mode = 2
+text = "0 PTS"
+
+[node name="TimeLabel" type="Label" parent="CenterContainer/ModalCard/VBox/StatsGrid"]
+layout_mode = 2
+text = "⏱️ SURVIVAL TIME:"
+horizontal_alignment = 2
+
+[node name="TimeVal" type="Label" parent="CenterContainer/ModalCard/VBox/StatsGrid"]
+layout_mode = 2
+text = "00:00"
+
+[node name="CopsLabel" type="Label" parent="CenterContainer/ModalCard/VBox/StatsGrid"]
+layout_mode = 2
+text = "💥 COPS WRECKED:"
+horizontal_alignment = 2
+
+[node name="CopsVal" type="Label" parent="CenterContainer/ModalCard/VBox/StatsGrid"]
+layout_mode = 2
+text = "0 WRECKED"
+
+[node name="QuestLabel" type="Label" parent="CenterContainer/ModalCard/VBox/StatsGrid"]
+layout_mode = 2
+text = "📋 DAILY QUESTS:"
+horizontal_alignment = 2
+
+[node name="QuestVal" type="Label" parent="CenterContainer/ModalCard/VBox/StatsGrid"]
+layout_mode = 2
+text = "ACTIVE"
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/ModalCard/VBox"]
+layout_mode = 2
+
+[node name="SettingsBox" type="VBoxContainer" parent="CenterContainer/ModalCard/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SfxHBox" type="HBoxContainer" parent="CenterContainer/ModalCard/VBox/SettingsBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 16
+
+[node name="SfxLabel" type="Label" parent="CenterContainer/ModalCard/VBox/SettingsBox/SfxHBox"]
+layout_mode = 2
+text = "🔊 SFX VOLUME:"
+
+[node name="SfxSlider" type="HSlider" parent="CenterContainer/ModalCard/VBox/SettingsBox/SfxHBox"]
+custom_minimum_size = Vector2(240, 32)
+layout_mode = 2
+value = 85.0
+
+[node name="SfxPercent" type="Label" parent="CenterContainer/ModalCard/VBox/SettingsBox/SfxHBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "85%"
+
+[node name="CamToggleBtn" type="Button" parent="CenterContainer/ModalCard/VBox/SettingsBox"]
+custom_minimum_size = Vector2(380, 56)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "🎥 CAMERA: STANDARD (24M)"
+
+[node name="HSeparator2" type="HSeparator" parent="CenterContainer/ModalCard/VBox"]
+layout_mode = 2
+
+[node name="ButtonsHBox" type="HBoxContainer" parent="CenterContainer/ModalCard/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="ResumeBtn" type="Button" parent="CenterContainer/ModalCard/VBox/ButtonsHBox"]
+custom_minimum_size = Vector2(220, 68)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_resume_btn")
+text = "▶️ RESUME GETAWAY"
+
+[node name="RestartBtn" type="Button" parent="CenterContainer/ModalCard/VBox/ButtonsHBox"]
+custom_minimum_size = Vector2(200, 68)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_restart_btn")
+text = "🔄 RESTART RUN"
+
+[node name="QuitBtn" type="Button" parent="CenterContainer/ModalCard/VBox/ButtonsHBox"]
+custom_minimum_size = Vector2(200, 68)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_quit_btn")
+text = "🏠 QUIT TO LOBBY"
